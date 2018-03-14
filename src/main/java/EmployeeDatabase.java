@@ -33,10 +33,10 @@ public class EmployeeDatabase {
      * @param employee
      * @return
      */
-    Employee findManager(final Employee employee) {
+    public Employee findManager(final Employee employee) {
         Employee manager = null;
         for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getName() == employee.getManager()) {
+            if (employees.get(i).getName().equals(employee.getManager())) {
                 manager = employees.get(i);
                 break;
             }
@@ -56,6 +56,12 @@ public class EmployeeDatabase {
         /*
          * Implement this function
          */
+        int count = 0;
+        if (findManager(employee) != null){
+            count++;
+            count += countManagersAbove(findManager(employee));
+        }
+        return count;
     }
 
     /**
@@ -70,6 +76,14 @@ public class EmployeeDatabase {
         /*
          * Implement this function
          */
+        int count = 0;
+        for (int i = 0; i < employees.size(); i++){
+            if (employees.get(i).getManager().equals(employee.getName())) {
+                count++;
+                count += countEmployeesUnder(employees.get(i));
+            }
+        }
+        return count;
     }
 
     /**
